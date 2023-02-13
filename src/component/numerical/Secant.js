@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { evaluate } from 'mathjs';
-import Graph from './Graph';
-import Table from './Table';
+import Graph from '../Graph';
+import Table from '../Table';
 
 function Secant(){
     const [inputs, setInputs] = useState({
@@ -33,14 +33,14 @@ function Secant(){
     
     return (
       <>
-        <div class="container border-bottom border-end p-3 bg-light">
+        <div className="container border-bottom border-end p-3 bg-light">
             <h1>Secant method</h1>
             <form onSubmit={handleSubmit}>
-                <div class="row mb-3 mt-3">
-                    <div class="col">
-                        <label class="form-label" for="func">f(x):</label>
+                <div className="row mb-3 mt-3">
+                    <div className="col">
+                        <label className="form-label" >f(x):</label>
                         <input
-                            class="form-control"
+                            className="form-control"
                             type="text"
                             name="func" 
                             id="func"
@@ -48,22 +48,22 @@ function Secant(){
                             onChange={(e) => updateInputs(e)} 
                         />
                     </div>
-                    <div class="col">
-                        <label class="form-label" for="X1">X1:</label>
+                    <div className="col">
+                        <label className="form-label" >X1:</label>
                         <input
-                        class="form-control"
-                        type="text"
+                        className="form-control"
+                        type="number"
                         name="X1"
                         id="X1"
                         value={inputs.X1}
                         onChange={(e) => updateInputs(e)} 
                         />
                     </div>
-                    <div class="col">
-                        <label class="form-label" for="X0">X0:</label>
+                    <div className="col">
+                        <label className="form-label" >X0:</label>
                         <input
-                        class="form-control"
-                        type="text"
+                        className="form-control"
+                        type="number"
                         name="X0"
                         id="X0"
                         value={inputs.X0}
@@ -71,10 +71,10 @@ function Secant(){
                         />
                     </div>
                 </div>
-                <button class="btn btn-primary" onClick={() => f()}>Calculate</button>
+                <button className="btn btn-primary" onClick={() => f()}>Calculate</button>
           </form>
         </div>
-        <div class="container">
+        <div className="container">
           <h4><br />Answer is {answer}</h4>
         </div>
         <Graph Data={error}/>

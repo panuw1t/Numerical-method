@@ -29,7 +29,7 @@ function Graph(props){
     };
   
     return (
-      <div class="container" style={{margin:"20px"}}>
+      <div className="container" style={{margin:"20px"}}>
         <div style={{width:600, marginLeft:"auto", marginRight:"auto"}}>
           <Line data={data} options={options}/>
         </div>

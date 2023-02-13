@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { evaluate } from 'mathjs';
 import { derivative } from 'mathjs';
-import Graph from './Graph';
-import Table from './Table';
+import Graph from '../Graph';
+import Table from '../Table';
 
 function NewtonRaphson(){
     const [inputs, setInputs] = useState({
@@ -33,14 +33,14 @@ function NewtonRaphson(){
     
     return (
       <>
-        <div class="container border-bottom border-end p-3 bg-light">
+        <div className="container border-bottom border-end p-3 bg-light">
           <h1>Newton's method</h1>
           <form onSubmit={handleSubmit}>
-            <div class="row mb-3 mt-3">
-              <div class="col">
-                <label class="form-label" for="func">f(x):</label>
+            <div className="row mb-3 mt-3">
+              <div className="col">
+                <label className="form-label">f(x):</label>
                   <input
-                    class="form-control"
+                    className="form-control"
                     type="text"
                     name="func" 
                     id="func"
@@ -48,11 +48,11 @@ function NewtonRaphson(){
                     onChange={(e) => updateInputs(e)} 
                   />
               </div>
-              <div class="col">
-                <label class="form-label" for="X">X:</label>
+              <div className="col">
+                <label className="form-label">X:</label>
                 <input
-                  class="form-control"
-                  type="text"
+                  className="form-control"
+                  type="number"
                   name="X"
                   id="X"
                   value={inputs.X}
@@ -60,10 +60,10 @@ function NewtonRaphson(){
                 />
               </div>
             </div>
-            <button class="btn btn-primary" onClick={() => f()}>Calculate</button>
+            <button className="btn btn-primary" onClick={() => f()}>Calculate</button>
           </form>
         </div>
-        <div class="container">
+        <div className="container">
           <h4><br />Answer is {answer}</h4>
         </div>
         <Graph Data={error}/>
@@ -121,6 +121,7 @@ function calNewton(obj){
     x = xold - f(xold)/df(xold);
     error = Math.abs(x-xold)/Math.abs(x);
     outputs.error.push(error);
+    
   }while(error > eps && outputs.data.length < limit); 
   outputs.data.push([x]);
   outputs.ans = x;

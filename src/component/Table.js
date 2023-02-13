@@ -6,8 +6,8 @@ function Table(props){
       )
     }
     return(
-      <div class="container">
-        <table class="table table-bordered table-sm">
+      <div className="container">
+        <table className="table table-bordered table-sm">
           <thead>
             <tr>
               <th>iteration</th>
