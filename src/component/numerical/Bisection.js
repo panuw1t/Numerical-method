@@ -1,16 +1,16 @@
-import { useState } from 'react';
 import { evaluate } from 'mathjs';
 import CustomInputs from '../Custom_inputs';
 
 function Bisection(){
   const head = "Bisection method";
   const field = {
-    "f(x)":"x^2 - 7",
+    "f(x)":"x",
     XL:0,
-    XR:4
+    XR:0
   }
   return (
-    <CustomInputs header={head} fields={field} calculate={bisection} />
+    <CustomInputs header={head} fields={field} calculate={bisection} 
+    headTable={["XL", "XM", "XR"]}/>
   )
 }
 
@@ -23,7 +23,11 @@ function bisection(inputs){
     const outputs ={
       ans:0,
       data:[],
-      error:[]
+      data_graph: {
+        error: [],
+        a: [],
+        f:() => "function"
+      }
     }
     const f = (a) =>{
       const scope = {
@@ -31,6 +35,7 @@ function bisection(inputs){
       }
       return evaluate(func, scope)
     }
+    outputs.data_graph.f = f;
 
     let xm = (xl + xr)/2.0;
     let xold = 0;
@@ -45,15 +50,16 @@ function bisection(inputs){
       return outputs;
     }
   
-    if(f(xl)*f(xr) > 0){
+    if(f(xl)*f(xr) >= 0){
       outputs.ans = "---Hey your boundary xl or xr is suck! try betteer!----";
       console.log("boundary xl, xr is wrong");
       return outputs;
     }
-    outputs.error.push(1);
+    outputs.data_graph.error.push(1);
   
     do{
       outputs.data.push([xl, xm, xr]);
+      outputs.data_graph.a.push(xm);
       xold = xm;
       if(f(xl)*f(xm) > 0){
         xl = xm;
@@ -63,7 +69,7 @@ function bisection(inputs){
       }
       xm = (xl + xr)/2.0
       error = (Math.abs(xm - xold)/Math.abs(xm))*100;
-      outputs.error.push(error);
+      outputs.data_graph.error.push(error);
     }while(error > eps);
     outputs.data.push([xl, xm, xr]);
   

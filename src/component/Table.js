@@ -24,9 +24,9 @@ function Table(props){
 
 function TableRow(props){
     return (
-      <tr>
-        <td>{props.id+1}</td>
-        {props.arr.map((x) => <td>{x}</td>)}
+      <tr key={"tr"+props.id+1}>
+        <td key={"td"+props.id+1}>{props.id+1}</td>
+        {props.arr.map((x) => <td key={x}>{x}</td>)}
       </tr>
     )
 }

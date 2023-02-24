@@ -1,3 +1,4 @@
+import React from 'react';
 import { Outlet, Link } from "react-router-dom";
 
 
@@ -10,7 +11,7 @@ function Navbar() {
         <nav className="navbar navbar-expand-sm  bg-primary navbar-dark" style={{marginBottom:"1%"}}>
             <div className="container-fluid">
                 <Link className="nav-link navbar-brand" style={stylelink} to="/">Numerical Method</Link>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar" title="dropdown">
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="collapsibleNavbar">

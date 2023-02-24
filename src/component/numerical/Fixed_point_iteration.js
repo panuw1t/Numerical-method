@@ -1,113 +1,54 @@
-import { useState } from 'react';
 import { evaluate } from 'mathjs';
-import Graph from '../Graph';
-import Table from '../Table';
+import CustomInputs from '../Custom_inputs';
+
 
 function FixedPointIteration(){
-    const [inputs, setInputs] = useState({
-      func:"x^2 - x - 1",
-      func2:"1 + 1/x",
-      X:1
-    });
-    const [answer, setAnswer] = useState("");
-    const [data, setData] = useState([]);
-    const [error, setError] = useState([]);
-  
-    const f = () => {
-      const outputs = calculate(inputs);
-      setData(outputs.data);
-      setError(outputs.error);
-      setAnswer(outputs.ans);
-    }
-  
-    const handleSubmit = (event) => {
-      event.preventDefault();
-    }
-  
-    const updateInputs = (event) => {
-      const name = event.target.name;
-      const value = event.target.value;
-      setInputs(previousState => ({...previousState, [name]: value}))
-    }
-  
-    
-    return (
-      <>
-        <div className="container border-bottom border-end p-3 bg-light">
-          <h1>Fixed-point iteration</h1>
-          <form onSubmit={handleSubmit}>
-            <div className="row mb-3 mt-3">
-              <div className="col">
-                <label className="form-label" >f(x):</label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    name="func" 
-                    id="func"
-                    value={inputs.func}
-                    onChange={(e) => updateInputs(e)} 
-                  />
-              </div>
-              <div className="col">
-                <label className="form-label" >g(x):</label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    name="func2" 
-                    id="func2"
-                    value={inputs.func2}
-                    onChange={(e) => updateInputs(e)} 
-                  />
-              </div>
-              <div className="col">
-                <label className="form-label" for="X">X:</label>
-                <input
-                  className="form-control"
-                  type="number"
-                  name="X"
-                  id="X"
-                  value={inputs.X}
-                  onChange={(e) => updateInputs(e)} 
-                />
-              </div>
-            </div>
-            <button className="btn btn-primary" onClick={() => f()}>Calculate</button>
-          </form>
-        </div>
-        <div className="container">
-          <h4><br />Answer is {answer}</h4>
-        </div>
-        <Graph Data={error}/>
-        <Table data={data} header={["X"]}/>
-      </> 
-    )
+  const head = "Fixed-point iteration";
+  const field = {
+    "f(x)":"x",
+    "g(x)":"x",
+    X:0
+  }
+  return (
+    <CustomInputs header={head} fields={field} calculate={calculate} 
+    headTable={["X"]} url={"http://localhost:3001/sample/fix"}/>
+  )
 }
 
 function calculate(obj){
-  const func = obj.func;
-  const func2 = obj.func2;
+  const func = obj["f(x)"];
+  const func2 = obj["g(x)"];
   const eps = 0.0001;
   const limit = 50;
   const patient = 10000;
   const outputs ={
     ans:0,
     data:[],
-    error:[]
+    data_graph: {
+      error: [],
+      a: [],
+      f:() => "function"
+    }
   }
+
   const f = (a) =>{
     const scope = {
       x:a
     }
     return evaluate(func, scope);
   }
+
+  outputs.data_graph.f = f;
+
   const g = (a) =>{
     const scope = {
       x:a
     }
     return evaluate(func2, scope);
   }
+
   const early_stop = () =>{
-    if(outputs.error[outputs.error.length-1] >= outputs.error[outputs.error.length-2]){
+    if(outputs.data_graph.error[outputs.data_graph.error.length-1] >= outputs.data_graph.error[outputs.data_graph.error.length-2]){
         count = count-1;
     }
     else{
@@ -122,21 +63,25 @@ function calculate(obj){
   
   let x = Number(obj.X);
   let error;
+  let xold = 0;
   let count=patient;
-  outputs.error.push(1);
+  outputs.data_graph.error.push(1);
 
   do{
     outputs.data.push([x]);
+    outputs.data_graph.a.push(x);
+    xold = x;
     x = g(x);
     if(!isFinite(x)){
         console.log("x is infinite");
         break;
     }
-    error = Math.abs(f(x));
-    outputs.error.push(error);
+    error = (Math.abs(x - xold)/Math.abs(x))*100;
+    outputs.data_graph.error.push(error);
 
     if(early_stop()){
         console.log("early stop activated");
+        outputs.data_graph.error = [];
         break;
     }
 
