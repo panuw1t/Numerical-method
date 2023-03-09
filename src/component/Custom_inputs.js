@@ -32,9 +32,10 @@ function CustomInputs({ header, fields, calculate, url, headTable }) {
       const type = typeof placeholder === "number" ? "number" : "text";
       return (
         <div className="col" key={"div"+index}>
-          <label className="form-label" key={"label"+index}>{field}:</label>
+          <label className="form-label" key={"label"+index} htmlFor={field}>{field}:</label>
           <input
             className="form-control"
+            id={field}
             key={index}
             type={type}
             value={values[field]}
@@ -46,9 +47,9 @@ function CustomInputs({ header, fields, calculate, url, headTable }) {
 
     const get_sample = (x, number) =>{
       const xhttp = new XMLHttpRequest();
-      const url = x+number || "http://localhost:3001/sample/"+number;
+      const url = x+number || "http://localhost:3001/sample/general/"+number ;
       xhttp.onload = () => {
-        const sample = JSON.parse(xhttp.responseText);
+        const sample = JSON.parse(JSON.parse(xhttp.responseText)[0]["info"]);
         setValues(sample);
         const outputs = calculate(sample);
         setAnswer(outputs.ans);

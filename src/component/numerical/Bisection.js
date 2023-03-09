@@ -6,7 +6,7 @@ function Bisection(){
   const field = {
     "f(x)":"x",
     XL:0,
-    XR:0
+    XR:0,
   }
   return (
     <CustomInputs header={head} fields={field} calculate={bisection} 

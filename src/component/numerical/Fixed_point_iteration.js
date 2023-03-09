@@ -11,7 +11,7 @@ function FixedPointIteration(){
   }
   return (
     <CustomInputs header={head} fields={field} calculate={calculate} 
-    headTable={["X"]} url={"http://localhost:3001/sample/fix"}/>
+    headTable={["X"]} url={"http://localhost:3001/sample/fixpoint/"}/>
   )
 }
 

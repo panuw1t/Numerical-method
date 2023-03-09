@@ -121,7 +121,7 @@ function SomePlot({f, data, width}) {
 
   const config = {
     displayModeBar: false,
-    doubleClick: 'reset'
+    
   };
 
   return (

@@ -7,8 +7,8 @@ function Table(props){
     }
     return(
       <div className="container">
-        <table className="table table-bordered table-sm">
-          <thead>
+        <table className="table table-bordered table-hover table-sm">
+          <thead >
             <tr>
               <th>iteration</th>
               {props.header.map((x, index) => <th key={index}>{x}</th>)}
