@@ -3,9 +3,10 @@ const app = express()
 const mysql = require("mysql");
 
 const connection = mysql.createConnection({
-    host: 'localhost',
+    host: 'host.docker.internal',
+    port: 3307,
     user: 'root',
-    password: 'pech2544za',
+    password: '1234',
     database: 'numerical',
 });
 
