@@ -4,7 +4,7 @@ CREATE DATABASE numerical;
 
 use numerical;
 
-CREATE TABLE sample (
+CREATE TABLE Sample (
     id int not null,
     sample int not null,
     method varchar(255),
@@ -13,7 +13,7 @@ CREATE TABLE sample (
 );
 
 
-insert into sample
+insert into Sample
 value (1, 1, "general",  '{"f(x)":"x^2 - 7", "XL":0, "XR":4, "X":1, "X1":1, "X0":0 }'),
 	(2, 2, "general", '{"f(x)":"x - cos(x)", "XL":0, "XR":1, "X":1, "X1":1, "X0":0 }'),
     (3, 3, "general", '{"f(x)":"x^3 + 2*x^2 + 10*x - 20", "XL":1, "XR":2, "X":1, "X1":1, "X0":0}'),

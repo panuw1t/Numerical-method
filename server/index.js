@@ -34,7 +34,7 @@ app.get("/sample/:method/:number", (req, res) => {
     pool.getConnection((err, connection) => {
         if (err) throw err;
     
-        const sql = `SELECT info FROM sample WHERE method = \"${req.params.method}\" and sample = ${req.params.number}`;
+        const sql = `SELECT info FROM Sample WHERE method = \"${req.params.method}\" and sample = ${req.params.number}`;
 
         connection.query(sql, (err, result) => {
           connection.release(); // release the connection back to the pool
