@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Graph from './Graph';
 import Table from './Table'
+import axios from 'axios';
 
 
 function CustomInputs({ header, fields, calculate, url, headTable }) {
@@ -47,18 +48,19 @@ function CustomInputs({ header, fields, calculate, url, headTable }) {
     }
 
     const get_sample = (x, number) =>{
-      const xhttp = new XMLHttpRequest();
       const url = x+number || "http://localhost:3001/sample/general/"+number ;
-      xhttp.onload = () => {
-        const sample = JSON.parse(JSON.parse(xhttp.responseText)[0]["info"]);
-        setValues(sample);
-        const outputs = calculate(sample);
-        setAnswer(outputs.ans);
-        setData(outputs.data);
-        setData_graph(outputs.data_graph);
-      }
-      xhttp.open("GET", url);
-      xhttp.send();
+      axios.get(url)
+        .then(res => {
+          const sample = JSON.parse(res.data[0]["info"]);
+          setValues(sample);
+          const outputs = calculate(sample);
+          setAnswer(outputs.ans);
+          setData(outputs.data);
+          setData_graph(outputs.data_graph);
+        })
+        .catch(error => {
+          console.log(error);
+        })
     }
   
     return (
@@ -92,6 +94,45 @@ function CustomInputs({ header, fields, calculate, url, headTable }) {
                   sample3
                 </button>
               </div>
+              <button type='button' className="btn btn-primary mx-3" onClick={() => {
+                const url = "http://localhost:3001/protected";
+                let token = localStorage.getItem('token'); 
+
+                if (!token){
+                  axios.get("http://localhost:3001/generate/doggie")
+                    .then(res => {
+                      localStorage.setItem('token', res.data);
+                      console.log("token stored in local storage");
+                      axios.get(url, {
+                        headers: { Authorization: token}
+                      })
+                        .then(res => {
+                          console.log(res.data);
+                          console.log(token);
+                        })
+                        .catch(error => {
+                          console.log(error);
+                        })
+                    })
+                    .catch(err => console.log(err));
+                }
+                else{
+                  axios.get(url, {
+                    headers: { Authorization: token}
+                  })
+                    .then(res => {
+                      console.log(res.data);
+                      console.log(token);
+                    })
+                    .catch(error => {
+                      console.log(error);
+                    })
+                }                                 
+                
+              }} 
+              title="test api">
+                test
+              </button>
             </div>
           </form>
         </div>

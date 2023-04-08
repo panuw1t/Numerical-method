@@ -37,7 +37,7 @@ function calculate(inputs){
     }
     outputs.data_graph.f = f;
   
-    let xm = (xl + xr)/2.0;
+    let xm = xr - (xl - xr)*f(xr)/(f(xl) - f(xr));
     let xold = 0;
     let error;
 
