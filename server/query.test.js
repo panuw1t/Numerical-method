@@ -1,6 +1,5 @@
 const request = require('supertest');
 const app = require('./app.js');
-const jwt = require('jsonwebtoken');
 
 const secretKey = 'amongus';
 

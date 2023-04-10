@@ -35,3 +35,5 @@ jobs:
         run: |
           cd web
           npm test
+      - name: test docker
+        run: docker-compose build
