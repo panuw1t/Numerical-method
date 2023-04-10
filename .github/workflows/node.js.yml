@@ -20,10 +20,10 @@ jobs:
         with:
           node-version: 18
       - name: install module
-      - run: |
+        run: |
           cd server
           npm i
       - name: test
-      - run: |
+        run: |
           cd server
           npm test
