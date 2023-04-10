@@ -23,7 +23,11 @@ jobs:
         run: |
           cd server
           npm i
-      - name: test
+      - name: test api
         run: |
           cd server
+          npm test
+      - name: test webs
+        run: |
+          cd web
           npm test
