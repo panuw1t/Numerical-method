@@ -9,6 +9,7 @@ import FalsePosition from "./component/numerical/False_position";
 import FixedPointIteration from "./component/numerical/Fixed_point_iteration";
 import CramerRule from "./component/numerical/Cramer_rule";
 
+
 function App() {
   return (
     <BrowserRouter>

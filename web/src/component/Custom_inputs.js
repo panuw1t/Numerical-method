@@ -99,7 +99,7 @@ function CustomInputs({ header, fields, calculate, url, headTable }) {
                 let token = localStorage.getItem('token'); 
 
                 if (!token){
-                  axios.get("http://localhost:3001/generate/doggie")
+                  axios.get("http://localhost:3001/generate/panuv")
                     .then(res => {
                       localStorage.setItem('token', res.data);
                       console.log("token stored in local storage");
