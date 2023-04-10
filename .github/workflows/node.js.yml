@@ -19,9 +19,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-      - name: install module
+      - name: install module server
         run: |
           cd server
+          npm i
+      - name: install module web
+        run: |
+          cd web
           npm i
       - name: test api
         run: |
